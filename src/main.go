@@ -12,6 +12,12 @@ import (
 
 func main() {
 
+    if args := os.Args[1:]; len(args) > 0 {
+        conf := loadConfiguration()
+        execInput(strings.Join(args, " "), conf)
+        os.Exit(0)
+    }
+
     reader := bufio.NewReader(os.Stdin)
     for {
         conf := loadConfiguration()
@@ -25,7 +31,7 @@ func main() {
             fmt.Fprintln(os.Stderr, err)
         }
 
-        if input != "\n" {
+        if input != "\n" && input != "" {
             // Execute the user input
             execInput(input, conf)
         }
@@ -34,7 +40,7 @@ func main() {
 
 func sigCatch(conf Configuration) {
     c := make(chan os.Signal, 1)
-    signal.Notify(c, os.Interrupt)
+    signal.Notify(c)
     go func() {
         <-c
         fmt.Println()

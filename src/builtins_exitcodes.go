@@ -5,7 +5,7 @@ import (
     "os"
 )
 
-func exitcodes(args []string, conf Configuration) {
+func builtins_exitcodes(args []string, conf Configuration) {
     fmt.Println("This is a list of all current exitcodes in TurtleShell.")
     fmt.Println("You can view the previous command's exitcode by running 'get exitcode'")
     fmt.Println("")

@@ -12,12 +12,15 @@ type Configuration struct {
     Prompt  string
     User    string
     HomeDir string
+    Version string
 }
 
 func loadConfiguration() Configuration {
     configuration := Configuration{}
     configuration = parseUser(configuration)
-    configFile := configuration.HomeDir + "/.config/turtleshell/config.json"
+    configuration.Version = "0.0.0-dev"
+
+    configFile := configuration.HomeDir + "/.turtlerc"
 
     if _, err := os.Stat(configFile); err == nil {
         file, _ := os.Open(configFile)

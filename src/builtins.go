@@ -7,17 +7,18 @@ type Builtins struct {
 
 func NewBuiltins() Builtins {
     commands := map[string]func([]string, Configuration) {
-        "cd": cd,
-        "gohome": gohome,
-        "get": get,
-        "exitcodes": exitcodes,
+        "cd": builtins_cd,
+        "exitcodes": builtins_exitcodes,
+        "get": builtins_get,
+        "gohome": builtins_gohome,
+        "turtle": builtins_turtle,
     }
 
     help := map[string]string {
         "cd": "Changes the shell working directory.",
-        "gohome": "Move to the user's home directory.",
-        "get": "Gets an environmental variable.",
         "exitcodes": "Show all shell exitcodes.",
+        "get": "Gets an environmental variable.",
+        "gohome": "Move to the user's home directory.",
     }
 
     b := Builtins {commands, help}
