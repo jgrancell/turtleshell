@@ -12,6 +12,7 @@ func NewBuiltins() Builtins {
         "exitcodes": builtins_exitcodes,
         "get": builtins_get,
         "gohome": builtins_gohome,
+        "set": builtins_set,
         "turtle": builtins_turtle,
     }
 
@@ -21,6 +22,7 @@ func NewBuiltins() Builtins {
         "exitcodes": "Show all shell exitcodes.",
         "get": "Gets an environmental variable.",
         "gohome": "Move to the user's home directory.",
+        "set": "Sets an environmental variable.",
     }
 
     b := Builtins {commands, help}

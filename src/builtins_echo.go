@@ -31,7 +31,7 @@ func builtins_echo(args []string, conf Configuration) {
             // We're either printing just a string, or a variable
             if strings.HasPrefix(string, "$") {
                 // We're looking for the value of a variable
-                variable := strings.ToUpper(strings.Trim("$", string))
+                variable := strings.ToUpper(strings.Trim(string, "$"))
                 lookup := os.Getenv("TURTLE_" + variable)
                 fmt.Println(lookup)
                 os.Setenv("TURTLE_EXIT_CODE", "0")
