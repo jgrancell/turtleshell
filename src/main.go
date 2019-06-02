@@ -12,39 +12,46 @@ import (
 
 func main() {
 
+    conf := loadConfiguration()
+
     if args := os.Args[1:]; len(args) > 0 {
-        conf := loadConfiguration()
         execInput(strings.Join(args, " "), conf)
         os.Exit(0)
     }
 
+    sigCatch(conf)
+
     reader := bufio.NewReader(os.Stdin)
     for {
         conf := loadConfiguration()
-        sigCatch(conf)
+
         // Provide the shell prompt
         fmt.Print(conf.Prompt, " ")
 
         // Read the keyboard input
         input, err := reader.ReadString('\n')
-        if err != nil {
-            fmt.Fprintln(os.Stderr, err)
-        }
 
-        if input != "\n" && input != "" {
-            // Execute the user input
-            execInput(input, conf)
+        if err != nil {
+            fmt.Println()
+        } else {
+            if input != "\n" && input != ""  {
+                // Execute the user input
+                execInput(input, conf)
+            }    
         }
     }
 }
 
 func sigCatch(conf Configuration) {
     c := make(chan os.Signal, 1)
-    signal.Notify(c)
+    signal.Notify(c, os.Interrupt)
     go func() {
-        <-c
-        fmt.Println()
-        fmt.Print(conf.Prompt, " ")
+        for sig := range c {
+            if sig == os.Interrupt {
+                fmt.Println()
+                fmt.Print(conf.Prompt, " ")
+            }
+        }
     }()
 }
 
@@ -74,17 +81,25 @@ func execInput(input string, conf Configuration) {
             command := builtins.Commands[args[0]]
             command(args, conf)
         } else {
-            // Running an external command
-            // Prepare the command to execute
-            cmd := exec.Command(args[0], args[1:]...)
+            // Determining what sort of command we're running
+            info := runner_identify(args)
 
-            // Attach to the output devices
-            cmd.Stderr = os.Stderr
-            cmd.Stdout = os.Stdout
+            // Running a script
+            if info["runner"] == "file" {
+                runner_scripts(args)
+            } else {
+                // Running an external command
+                // Prepare the command to execute
+                cmd := exec.Command(args[0], args[1:]...)
 
-            // Run the command and return the output
-            if err := cmd.Run(); err != nil {
-                fmt.Fprintln(os.Stderr, err)
+                // Attach to the output devices
+                cmd.Stderr = os.Stderr
+                cmd.Stdout = os.Stdout
+
+                // Run the command and return the output
+                if err := cmd.Run(); err != nil {
+                    fmt.Fprintln(os.Stderr, err)
+                }
             }
         }
     }

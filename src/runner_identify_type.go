@@ -1,16 +1,13 @@
 package main
 
-import (
-    "fmt"
-    "os"
-)
-
 func runner_identify(args []string) map[string]string {
-    return := make(map[string]string)
+    array := make(map[string]string)
 
-    if args[1] == "run" || args[1] == "." {
-        return["runner"] = "file"
-    } else if _, e{
-        return "farts"
+    if args[0] == "run" || args[0] == "." {
+        array["runner"] = "file"
+    } else {
+        array["runner"] = "binary"
     }
+
+    return array
 }
