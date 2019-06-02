@@ -13,7 +13,7 @@ before_script:
 stages:
   - build
 
-joshgrancell.com:
+Build:
   stage: build
   script:
     - docker build --tag jgrancell/turtleshell:latest --tag jgrancell/turtleshell:$CI_BUILD_REF .

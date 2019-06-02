@@ -37,7 +37,7 @@ func main() {
             if input != "\n" && input != ""  {
                 // Execute the user input
                 execInput(input, conf)
-            }    
+            }
         }
     }
 }
@@ -91,6 +91,7 @@ func execInput(input string, conf Configuration) {
                 // Running an external command
                 // Prepare the command to execute
                 cmd := exec.Command(args[0], args[1:]...)
+                cmd.Stdin = os.Stdin
 
                 // Attach to the output devices
                 cmd.Stderr = os.Stderr

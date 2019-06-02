@@ -24,4 +24,4 @@ WORKDIR /home/donatello
 USER donatello
 COPY docker/.turtlerc ./
 
-CMD ['/usr/bin/turtleshell', 'turtle']
+CMD '/usr/bin/docker-entrypoint'
