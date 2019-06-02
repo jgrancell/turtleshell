@@ -36,6 +36,7 @@ func main() {
         } else {
             if input != "\n" && input != ""  {
                 // Execute the user input
+                history_save(input, conf)
                 execInput(input, conf)
             }
         }

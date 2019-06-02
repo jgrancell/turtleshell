@@ -8,11 +8,12 @@ import (
 )
 
 type Configuration struct {
-    PS1     string
-    Prompt  string
-    User    string
-    HomeDir string
-    Version string
+    PS1      string
+    Prompt   string
+    User     string
+    HistFile string
+    HomeDir  string
+    Version  string
 }
 
 func loadConfiguration() Configuration {
@@ -36,6 +37,7 @@ func loadConfiguration() Configuration {
     }
 
     configuration.Prompt = parsePrompt(configuration.PS1)
+    configuration.HistFile = configuration.HomeDir + "/.turtle_history"
 
     return configuration
 }
@@ -44,7 +46,7 @@ func parsePrompt(ps1 string) string {
     shortcodes := make([]string, 3)
     shortcodes[0] = "{user}"
     shortcodes[1] = "{hostname}"
-    shortcodes[2] = "{pwd}"
+    shortcodes[2] = "{cwd}"
 
     var prompt string
 

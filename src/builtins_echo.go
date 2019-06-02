@@ -14,8 +14,6 @@ func builtins_echo(args []string, conf Configuration) {
     // args[3] == the append or overwrite target
     if len(args) > 1 {
         string := args[1]
-        fmt.Println("Our string is:", string)
-        fmt.Println(len(args))
         // Determining if we're echoing into a file
         if len(args) == 4 {
             //targetFile := args[3]
