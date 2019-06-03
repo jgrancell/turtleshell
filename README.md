@@ -19,6 +19,7 @@ Changes include:
 * Builtin commands that make more sense in plain English.
     * Example: `gohome` instead of having to do `cd ~`
     * Example: `get exitcode` instead of having to do `echo $?`
+    * Example: `set $VARIABLE value` instead of having to do `VARIABLE=value`
 * Easier and more readable customization of shell prompts.
     * Example: `<{color:green}{user}{endcolor}@{cwd}> ` instead of `\[\e[0;32m\u\e[0;0m@\h\]`
 
@@ -33,12 +34,14 @@ Currently implemented features:
  * The mechanisms to create and use shell builtin commands.
      * A number of commands already work, including:
          * `cd` -- Change shell working directory.
-         * `exitcodes` -- Show all exit codes currently used by the shell, and their meanings
-         * `get` -- Display a specific environmental variable
+         * `exitcodes` -- Show all exit codes currently used by the shell, and their meanings.
+         * `get` -- Display a specific environmental variable.
          * `gohome` -- Change the shell working directory to the user's Home Directory.
+         * `set` -- Sets a shell variable.
     * The mechanism to create shell builtins is well defined, and easily iterate-able.
 * The ability to read arbitrary configuration from `~/.turtlerc` files.
 * The ability to customize the turtleshell prompt, which updates in real time while using the shell.
+* History saving, including optional timestamps.
 
 Planned features include, but aren't necessarily limited to:
 
@@ -73,7 +76,7 @@ portions of the codebase as I increase my knowledge and understanding of Go.
 
 If you would like to try out TurtleShell, you can in one of two ways:
 
-1. Run the Docker container. `docker run -it jgrancell/turtleshell:development /bin/turtleshell`. Have fun. Enjoy the Ninja Turtles' default theme.
+1. Run the Docker container. `docker run -it jgrancell/turtleshell:development /bin/tsh`. Have fun. Enjoy the Ninja Turtles' default theme.
 2. Clone down this repository, move into the `src/` directory, and run `go build -o turtleshell`.
     1. Run TurtleShell via `./turtleshell`, which will run it as a subshell of your current shell.
     2. Alternatively, create a new system user, set that user's default shell to the
