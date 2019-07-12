@@ -31,7 +31,7 @@ func NewBuiltins() Builtins {
 
 func isBuiltin(command string) bool {
 	builtins := NewBuiltins()
-	for k, _ := range builtins.Commands {
+	for k := range builtins.Commands {
 		if command == k {
 			return true
 		}
