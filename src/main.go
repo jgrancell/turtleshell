@@ -36,7 +36,7 @@ func main() {
 		} else {
 			if input != "\n" && input != "" {
 				// Execute the user input
-				history_save(input, conf)
+				historySave(input, conf)
 				execInput(input, conf)
 			}
 		}
@@ -83,11 +83,11 @@ func execInput(input string, conf Configuration) {
 			command(args, conf)
 		} else {
 			// Determining what sort of command we're running
-			info := runner_identify(args)
+			info := runnerIdentify(args)
 
 			// Running a script
 			if info["runner"] == "file" {
-				runner_scripts(args)
+				runnerScripts(args)
 			} else {
 				// Running an external command
 				// Prepare the command to execute

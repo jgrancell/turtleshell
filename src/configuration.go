@@ -7,6 +7,7 @@ import (
 	"strings"
 )
 
+// Configuration information for the application
 type Configuration struct {
 	PS1      string
 	Prompt   string
@@ -16,6 +17,7 @@ type Configuration struct {
 	Version  string
 }
 
+// loadConfiguration loads configuration information from file and sets defaults.
 func loadConfiguration() Configuration {
 	configuration := Configuration{}
 	configuration = parseUser(configuration)

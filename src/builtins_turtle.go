@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func builtins_turtle(args []string, conf Configuration) {
+func builtinsTurtle(args []string, conf Configuration) {
 	fmt.Println("    _____    ____")
 	fmt.Println("  /      \\  |  o | ")
 	fmt.Println("  |        |/ __\\| ")

@@ -5,9 +5,9 @@ import (
 	"os"
 )
 
-func history_save(text string, conf Configuration) {
+func historySave(text string, conf Configuration) {
 	// Determining if our HistFile exists
-	if results := create_file(conf.HistFile); results == true {
+	if results := createFile(conf.HistFile); results == true {
 		file, err := os.OpenFile(conf.HistFile, os.O_APPEND|os.O_WRONLY, 0600)
 
 		if err != nil {

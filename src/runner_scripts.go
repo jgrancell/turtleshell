@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func runner_scripts(args []string) {
+func runnerScripts(args []string) {
 	// Determining if a file target was passed
 	if len(args) > 1 {
 		// Determining if the file target exists

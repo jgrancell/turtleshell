@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func builtins_echo(args []string, conf Configuration) {
+func builtinsEcho(args []string, conf Configuration) {
 	// For the echo builtin, there's potentially up to 4 arguments
 	// args[0] == the echo command itself
 	// args[1] == the variable of string we're echoing

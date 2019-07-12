@@ -6,7 +6,7 @@ import (
 	"os/user"
 )
 
-func builtins_gohome(args []string, conf Configuration) {
+func builtinsGohome(args []string, conf Configuration) {
 	usr, _ := user.Current()
 	homeDir := usr.HomeDir
 	if _, err := os.Stat(homeDir); err != nil {

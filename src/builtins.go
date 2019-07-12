@@ -1,19 +1,21 @@
 package main
 
+// Builtins maps command line built in commands to go functions.
 type Builtins struct {
 	Commands map[string]func([]string, Configuration)
 	Help     map[string]string
 }
 
+// NewBuiltins generates a Builtins struct for application use.
 func NewBuiltins() Builtins {
 	commands := map[string]func([]string, Configuration){
-		"cd":        builtins_cd,
-		"echo":      builtins_echo,
-		"exitcodes": builtins_exitcodes,
-		"get":       builtins_get,
-		"gohome":    builtins_gohome,
-		"set":       builtins_set,
-		"turtle":    builtins_turtle,
+		"cd":        builtinsCd,
+		"echo":      builtinsEcho,
+		"exitcodes": builtinsExitcodes,
+		"get":       builtinsGet,
+		"gohome":    builtinsGohome,
+		"set":       builtinsSet,
+		"turtle":    builtinsTurtle,
 	}
 
 	help := map[string]string{

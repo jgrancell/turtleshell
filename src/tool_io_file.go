@@ -4,7 +4,7 @@ import (
 	"os"
 )
 
-func create_file(path string) bool {
+func createFile(path string) bool {
 	// Detect if the path already exists
 	_, err := os.Stat(path)
 

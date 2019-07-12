@@ -1,6 +1,6 @@
 package main
 
-func runner_identify(args []string) map[string]string {
+func runnerIdentify(args []string) map[string]string {
 	array := make(map[string]string)
 
 	if args[0] == "run" || args[0] == "." {

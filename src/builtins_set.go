@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func builtins_set(args []string, conf Configuration) {
+func builtinsSet(args []string, conf Configuration) {
 	if len(args) == 3 {
 		if args[1] == "exitcode" {
 			os.Setenv("TURTLE_EXIT_CODE", args[1])
