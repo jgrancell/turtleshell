@@ -1,10 +1,10 @@
 FROM golang:1.15-alpine3.12 as build
 
 WORKDIR /go/src
+RUN apk --no-cache update && apk --no-cache upgrade
 COPY src/ ./
 
-RUN apk --no-cache update \
-  && go build -o turtleshell
+RUN go build -o turtleshell
 
 FROM alpine:3.12
 LABEL maintainer="Josh Grancell <josh@joshgrancell.com>"
