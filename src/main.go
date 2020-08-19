@@ -9,7 +9,9 @@ import (
 	"strings"
 )
 
+var exitCode int
 var history []string
+var variables map[string]string
 
 func main() {
 
@@ -37,9 +39,11 @@ func main() {
 		} else {
 			if input != "\n" && input != "" {
 				// Execute the user input
-				history = append(history, input)
 				historySave(input, conf)
 				execInput(input, conf)
+
+				// Save it to active shell history
+				history = append(history, strings.TrimSpace(input))
 			}
 		}
 	}

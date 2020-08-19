@@ -2,6 +2,9 @@
 
 A not very good Linux shell written in Go.
 
+![Version](https://img.shields.io/badge/version-development-blueviolet?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-black?style=for-the-badge)
+
 ## Objectives
 
 One of the best ways I've found to learn a programming language is to create a

@@ -8,18 +8,17 @@ import (
 
 func builtinsGet(args []string, conf Configuration) {
 	if args[1] == "exitcode" {
-		exitcode := os.Getenv("TURTLE_EXIT_CODE")
-		fmt.Println(exitcode)
-		os.Setenv("TURTLE_EXIT_CODE", "0")
+		fmt.Println(exitCode)
+		setExitcode(0)
 	} else if args[1] == "all" {
 		for _, e := range os.Environ() {
-			if strings.HasPrefix(e, "TURTLE_") {
-				fmt.Println(e)
-			}
+			fmt.Println(e)
 		}
+		setExitcode(0)
 	} else {
 		variable := strings.ToUpper(strings.Trim(args[1], "$"))
-		value := os.Getenv("TURTLE_" + variable)
+		value := os.Getenv(variable)
 		fmt.Println(value)
+		setExitcode(0)
 	}
 }

@@ -14,6 +14,8 @@ func NewBuiltins() Builtins {
 		"exitcodes": builtinsExitcodes,
 		"get":       builtinsGet,
 		"gohome":    builtinsGohome,
+		"history":   builtinsHistory,
+		"redo":      builtinsRedo, // part of the builtins_history file
 		"set":       builtinsSet,
 		"turtle":    builtinsTurtle,
 	}
@@ -24,6 +26,8 @@ func NewBuiltins() Builtins {
 		"exitcodes": "Show all shell exitcodes.",
 		"get":       "Gets an environmental variable.",
 		"gohome":    "Move to the user's home directory.",
+		"history":   "Shows a list of all shell history items.",
+		"redo":      "Runs a previously run command from history.",
 		"set":       "Sets an environmental variable.",
 	}
 

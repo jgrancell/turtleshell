@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"os"
 )
 
 func builtinsExitcodes(args []string, conf Configuration) {
@@ -11,6 +10,8 @@ func builtinsExitcodes(args []string, conf Configuration) {
 	fmt.Println("")
 	fmt.Println("0    Successful.")
 	fmt.Println("1    Error.")
+	fmt.Println("98   You cannot manually set an exit code using the 'set' command.")
+	fmt.Println("99   The specific command or options are not yet available.")
 	fmt.Println("127  The target directory could not be found.")
-	os.Setenv("TURTLE_EXIT_CODE", "0")
+	setExitcode(0)
 }

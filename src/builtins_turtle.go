@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"os"
 )
 
 func builtinsTurtle(args []string, conf Configuration) {
@@ -13,5 +12,5 @@ func builtinsTurtle(args []string, conf Configuration) {
 	fmt.Println("  |_|_| |_|_|")
 	fmt.Println()
 	fmt.Println("TurtleShell -- Version", conf.Version)
-	os.Setenv("TURTLE_EXIT_CODE", "0")
+	setExitcode(0)
 }

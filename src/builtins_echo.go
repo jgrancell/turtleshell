@@ -21,25 +21,34 @@ func builtinsEcho(args []string, conf Configuration) {
 			if args[2] == ">" {
 				// Overwriting our target file
 				//overwrite := true
+				setExitcode(99)
 			} else {
 				// Appending to our target file
 				//overwrite := false
+				setExitcode(99)
 			}
 		} else {
 			// We're either printing just a string, or a variable
 			if strings.HasPrefix(string, "$") {
 				// We're looking for the value of a variable
-				variable := strings.ToUpper(strings.Trim(string, "$"))
-				lookup := os.Getenv("TURTLE_" + variable)
-				fmt.Println(lookup)
-				os.Setenv("TURTLE_EXIT_CODE", "0")
+				if _, ok := variables[string]; ok {
+					fmt.Println(variables[string])
+					setExitcode(0)
+				} else {
+					variable := strings.ToUpper(strings.Trim(string, "$"))
+					if value, ok := os.LookupEnv(variable); ok {
+						fmt.Println(value)
+						setExitcode(0)
+					} else {
+						setExitcode(1)
+					}
+				}
 			} else {
 				fmt.Println(strings.Trim("\"", string))
-				os.Setenv("TURTLE_EXIT_CODE", "0")
+				setExitcode(0)
 			}
 		}
 	} else {
-		fmt.Println()
-		os.Setenv("TURTLE_EXIT_CODE", "0")
+		setExitcode(1)
 	}
 }
