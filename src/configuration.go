@@ -21,7 +21,7 @@ type Configuration struct {
 func loadConfiguration() Configuration {
 	configuration := Configuration{}
 	configuration = parseUser(configuration)
-	configuration.Version = "0.0.0-dev"
+	configuration.Version = "0.1.0"
 
 	configFile := configuration.HomeDir + "/.turtlerc"
 

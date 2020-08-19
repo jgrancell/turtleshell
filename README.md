@@ -2,7 +2,7 @@
 
 A not very good Linux shell written in Go.
 
-![Version](https://img.shields.io/badge/version-development-blueviolet?style=for-the-badge)
+![Version](https://img.shields.io/badge/version-0.1.0-blueviolet?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-black?style=for-the-badge)
 
 ## Objectives
@@ -36,10 +36,13 @@ Currently implemented features:
  * The ability to invoke normal system commands and binaries.
  * The mechanisms to create and use shell builtin commands.
      * A number of commands already work, including:
-         * `cd` -- Change shell working directory.
+         * `cd`        -- Changes the shell working directory.
+         * `echo`      -- Prints the value of a variable.
          * `exitcodes` -- Show all exit codes currently used by the shell, and their meanings.
-         * `get` -- Display a specific environmental variable.
-         * `gohome` -- Change the shell working directory to the user's Home Directory.
+         * `get`       -- Display a specific environmental variable.
+         * `gohome`    -- Change the shell working directory to the user's Home Directory.
+         * `history`   -- Shows a list of all items that have been run in this shell session.
+         * `redo`      -- Allows you to re-run any command found in the active shell session's history.
          * `set` -- Sets a shell variable.
     * The mechanism to create shell builtins is well defined, and easily iterate-able.
 * The ability to read arbitrary configuration from `~/.turtlerc` files.
@@ -48,8 +51,13 @@ Currently implemented features:
 
 Planned features include, but aren't necessarily limited to:
 
-* Setting environment variables via `set VARIABLE value` and `set VARIABLE "multi word value"`.
-* Command history with select-and-execute functionality.
+* Environment:
+  * ~~Setting environment variables via `set VARIABLE value` and `set VARIABLE "multi word value"`.~~ [complete]
+* History:
+  * ~~Command history with select-and-execute functionality.~~ [complete]
+  * Being able to hit the up arrow key to walk through history on the command line.
+  * `history !` just reruns the last command
+  * `history !sudo` runs the last command, but with sudo
 
 ## Contributing Suggestions, Issues, and Code
 
@@ -79,7 +87,7 @@ portions of the codebase as I increase my knowledge and understanding of Go.
 
 If you would like to try out TurtleShell, you can in one of two ways:
 
-1. Run the Docker container. `docker run -it jgrancell/turtleshell:development /bin/tsh`. Have fun. Enjoy the Ninja Turtles' default theme.
+1. Run the Docker container. `docker run -it jgrancell/turtleshell /bin/tsh`. Have fun. Enjoy the Ninja Turtles' default theme.
 2. Clone down this repository, move into the `src/` directory, and run `go build -o turtleshell`.
     1. Run TurtleShell via `./turtleshell`, which will run it as a subshell of your current shell.
     2. Alternatively, create a new system user, set that user's default shell to the
