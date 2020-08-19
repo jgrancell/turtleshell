@@ -4,11 +4,12 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"os/exec"
 	"os/signal"
 	"strconv"
 	"strings"
 )
+
+var history []string
 
 func main() {
 
@@ -36,6 +37,7 @@ func main() {
 		} else {
 			if input != "\n" && input != "" {
 				// Execute the user input
+				history = append(history, input)
 				historySave(input, conf)
 				execInput(input, conf)
 			}
@@ -75,34 +77,16 @@ func execInput(input string, conf Configuration) {
 		}
 		os.Exit(code)
 	} else {
+		// Determining what sort of command we're running
+		info := runnerIdentify(args)
 
-		// Determining if we're running a builtin command
-		if isBuiltin(args[0]) {
-			builtins := NewBuiltins()
-			command := builtins.Commands[args[0]]
-			command(args, conf)
+		// Running a script
+		if info["runner"] == "file" {
+			runnerScripts(args)
+		} else if info["runner"] == "command" {
+			runnerCommand(args[1:], conf)
 		} else {
-			// Determining what sort of command we're running
-			info := runnerIdentify(args)
-
-			// Running a script
-			if info["runner"] == "file" {
-				runnerScripts(args)
-			} else {
-				// Running an external command
-				// Prepare the command to execute
-				cmd := exec.Command(args[0], args[1:]...)
-				cmd.Stdin = os.Stdin
-
-				// Attach to the output devices
-				cmd.Stderr = os.Stderr
-				cmd.Stdout = os.Stdout
-
-				// Run the command and return the output
-				if err := cmd.Run(); err != nil {
-					fmt.Fprintln(os.Stderr, err)
-				}
-			}
+			runnerCommand(args, conf)
 		}
 	}
 }
