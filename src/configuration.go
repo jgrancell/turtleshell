@@ -25,7 +25,11 @@ func loadConfiguration() Configuration {
 
 	configFile := configuration.HomeDir + "/.turtlerc"
 
+	os.Setenv("SHELL", "/bin/tsh")
+	os.Setenv("SHELL_VERSION", configuration.Version)
+
 	if _, err := os.Stat(configFile); err == nil {
+		os.Setenv("TURTLE_RC", configFile)
 		file, _ := os.Open(configFile)
 		defer file.Close()
 		decoder := json.NewDecoder(file)
@@ -125,6 +129,8 @@ func parsePrompt(ps1 string) string {
 func parseUser(config Configuration) Configuration {
 	usr, _ := user.Current()
 	config.User = usr.Username
+	os.Setenv("USERNAME", config.User)
 	config.HomeDir = usr.HomeDir
+	os.Setenv("HOME", config.HomeDir)
 	return config
 }
