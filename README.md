@@ -2,11 +2,11 @@
 
 A not very good Linux shell written in Go.
 
-[![build](https://img.shields.io/travis/com/jgrancell/turtleshell?style=flat-square&logo=travis)](https://travis-ci.com/github/jgrancell/turtleshell)
-[![coverage](https://img.shields.io/codecov/c/github/jgrancell/turtleshell?style=flat-square&token=K1u8dfG8TA)](https://codecov.io/gh/jgrancell/turtleshell)
+[![build](https://img.shields.io/travis/com/jgrancell/turtleshell?style=for-the-badge&logo=travis)](https://travis-ci.com/github/jgrancell/turtleshell)
+[![coverage](https://img.shields.io/codecov/c/github/jgrancell/turtleshell?style=for-the-badge&token=K1u8dfG8TA)](https://codecov.io/gh/jgrancell/turtleshell)
 
-[![releases](https://img.shields.io/github/v/release/jgrancell/turtleshell?style=flat-square)](https://github.com/jgrancell/turtleshell/releases)
-[![GitHub license](https://img.shields.io/github/license/jgrancell/turtleshell?color=green&style=flat-square)](https://github.com/jgrancell/turtleshell/blob/main/LICENSE)
+![release](https://img.shields.io/github/v/release/jgrancell/turtleshell?sort=semver&style=for-the-badge)
+[![GitHub license](https://img.shields.io/github/license/jgrancell/turtleshell?color=brightgreen&style=for-the-badge)](https://github.com/jgrancell/turtleshell/blob/main/LICENSE)
 
 ## Objectives
 
