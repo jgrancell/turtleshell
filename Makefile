@@ -23,8 +23,8 @@ package: binaries
 	bash packaging/generate-containers.sh ${WORKDIR}/packaging
 
 test:
-	echo $(TEST) | xargs -t -n4 go test -timeout=30s -parallel=4 -coverprofile=cover.out
-	go tool cover -html=cover.out
+	echo $(TEST) | xargs -t -n4 go test -timeout=30s -parallel=4 -coverprofile=coverage.txt --covermode=atomic
+	go tool cover -html=coverage.txt
 
 clean:
 	rm -rf packaging/binaries
