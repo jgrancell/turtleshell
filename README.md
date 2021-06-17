@@ -2,8 +2,11 @@
 
 A not very good Linux shell written in Go.
 
-![Version](https://img.shields.io/badge/version-1.0.0-blueviolet?style=for-the-badge)
-![License](https://img.shields.io/badge/License-MIT-black?style=for-the-badge)
+[![build](https://img.shields.io/travis/com/jgrancell/turtleshell?style=flat-square&logo=travis)](https://travis-ci.com/github/jgrancell/turtleshell)
+[![coverage](https://img.shields.io/codecov/c/github/jgrancell/turtleshell?style=flat-square&token=K1u8dfG8TA)](https://codecov.io/gh/jgrancell/turtleshell)
+
+[![releases](https://img.shields.io/github/v/release/jgrancell/turtleshell?style=flat-square)](https://github.com/jgrancell/turtleshell/releases)
+[![GitHub license](https://img.shields.io/github/license/jgrancell/turtleshell?color=green&style=flat-square)](https://github.com/jgrancell/turtleshell/blob/main/LICENSE)
 
 ## Objectives
 
@@ -20,15 +23,16 @@ however I've made changes to the workflow and functionality to fit my own prefer
 Changes include:
 
 * Builtin commands that make more sense in plain English.
-    * Example: `gohome` instead of having to do `cd ~`
-    * Example: `get exitcode` instead of having to do `echo $?`
-    * Example: `set $VARIABLE value` instead of having to do `VARIABLE=value`
+    * Example: `home` instead of having to do `cd ~`
+    * Example: `status` instead of having to do `echo $?`
 * Easier and more readable customization of shell prompts.
     * Example: `<{color:green}{user}{endcolor}@{cwd}> ` instead of `\[\e[0;32m\u\e[0;0m@\h\]`
 
 ## Current and Planned Features
 
-This is still a very, **very** rough development application. I would hesitate to
+Turtleshell is under active development, and could now in 2021
+
+This is still a development application. I would hesitate to
 even begin to label this as pre-alpha. That being said, the features that exist
 all work well.
 
@@ -89,7 +93,7 @@ portions of the codebase as I increase my knowledge and understanding of Go.
 If you would like to try out TurtleShell, you can in one of two ways:
 
 1. Run the Docker container. `docker run -it jgrancell/turtleshell /bin/tsh`. Have fun. Enjoy the Ninja Turtles' default theme.
-2. Clone down this repository, move into the `src/` directory, and run `go build -o turtleshell`.
+2. Clone down this repository and run `make build`.
     1. Run TurtleShell via `./turtleshell`, which will run it as a subshell of your current shell.
     2. Alternatively, create a new system user, set that user's default shell to the
     full path of wherever you put the turtleshell binary, and then su/sudo/login to

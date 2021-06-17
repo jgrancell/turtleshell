@@ -23,10 +23,8 @@ package: binaries
 	bash packaging/generate-containers.sh ${WORKDIR}/packaging
 
 test:
-	chmod 000 testdata/workflows/unreadable-workflow.yaml
 	echo $(TEST) | xargs -t -n4 go test -timeout=30s -parallel=4 -coverprofile=cover.out
 	go tool cover -html=cover.out
-	chmod 644 testdata/workflows/unreadable-workflow.yaml
 
 clean:
 	rm -rf packaging/binaries
