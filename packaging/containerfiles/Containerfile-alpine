@@ -1,12 +1,12 @@
-FROM golang:1.15-alpine3.12 as build
+FROM docker://golang:alpine as build
 
 WORKDIR /go/src
 RUN apk --no-cache update && apk --no-cache upgrade
-COPY src/ ./
+COPY . ./
 
 RUN go build -o turtleshell
 
-FROM alpine:3.12
+FROM docker://alpine:latest
 LABEL maintainer="Josh Grancell <josh@joshgrancell.com>"
 
 COPY --from=build /go/src/turtleshell /usr/bin/turtleshell
@@ -22,6 +22,6 @@ RUN chmod +x /usr/bin/turtleshell \
 
 WORKDIR /home/donatello
 USER donatello
-COPY docker/.turtlerc ./
+COPY packaging/src/.turtlerc ./
 
 CMD 'turtle'

@@ -1,0 +1,14 @@
+FROM docker://golang:alpine as build
+
+WORKDIR /go/src
+RUN apk --no-cache update && apk --no-cache upgrade
+COPY . ./
+
+RUN CGO_ENABLED=0 go build -o turtleshell
+
+FROM scratch
+
+ADD packaging/workdir/rootfs.tar.xz /
+COPY --from=build /go/src/turtleshell /bin/tsh
+
+CMD 'turtle'

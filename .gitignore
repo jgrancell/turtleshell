@@ -1,2 +1,4 @@
-src/turtleshell
-src/src
+turtleshell
+packaging/binaries
+packaging/rootfs
+packaging/workdir

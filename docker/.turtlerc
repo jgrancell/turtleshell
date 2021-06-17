@@ -1,3 +1,0 @@
-{
-  "ps1": "[{color:magenta:bold}{user}{endcolor}@{color:yellow:bold}turtleshell{endcolor}:{color:cyan}{cwd}{endcolor}]{color:green:bold}${endcolor}"
-}

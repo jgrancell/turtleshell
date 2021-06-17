@@ -2,7 +2,7 @@
 
 A not very good Linux shell written in Go.
 
-![Version](https://img.shields.io/badge/version-0.1.0-blueviolet?style=for-the-badge)
+![Version](https://img.shields.io/badge/version-1.0.0-blueviolet?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-black?style=for-the-badge)
 
 ## Objectives
@@ -38,25 +38,25 @@ Currently implemented features:
      * A number of commands already work, including:
          * `cd`        -- Changes the shell working directory.
          * `echo`      -- Prints the value of a variable.
-         * `exitcodes` -- Show all exit codes currently used by the shell, and their meanings.
          * `get`       -- Display a specific environmental variable.
-         * `gohome`    -- Change the shell working directory to the user's Home Directory.
+         * `home`      -- Change the shell working directory to the user's Home Directory.
          * `history`   -- Shows a list of all items that have been run in this shell session.
-         * `redo`      -- Allows you to re-run any command found in the active shell session's history.
+         * `info`      -- Shows shell version and diagnostic information
+         * `run`       -- Runs arbitrary scripts using shellang, the scripting language that supports turtleshell.
          * `set` -- Sets a shell variable.
-    * The mechanism to create shell builtins is well defined, and easily iterate-able.
-* The ability to read arbitrary configuration from `~/.turtlerc` files.
+         * `status`    -- Show the exit status of the last command.
+         * `turtle`    -- Prints a very cool turtle
+    * The mechanism to create shell builtins is well defined, and builtins are easy to create.
+* The ability to read shell configuration from `~/.turtlerc` files.
 * The ability to customize the turtleshell prompt, which updates in real time while using the shell.
 * History saving, including optional timestamps.
 
 Planned features include, but aren't necessarily limited to:
 
-* Environment:
-  * ~~Setting environment variables via `set VARIABLE value` and `set VARIABLE "multi word value"`.~~ [complete]
 * History:
-  * ~~Command history with select-and-execute functionality.~~ [complete]
+  * ~~Command history with select-and-execute functionality.~~ [execute pending]
   * Being able to hit the up arrow key to walk through history on the command line.
-  * `history !` just reruns the last command
+  * `history !` and `history last` just reruns the last command
   * `history !sudo` runs the last command, but with sudo
 
 ## Contributing Suggestions, Issues, and Code
@@ -81,7 +81,8 @@ understanding and credit you accordingly, but the Merge Request itself will be d
 
 You shouldn't. You really really shouldn't. It's most likely not secure, it's
 definitely poorly written in its current state, and i'm prone to rewrite large
-portions of the codebase as I increase my knowledge and understanding of Go.
+portions of the codebase as I increase my knowledge and understanding of Go. 
+(June 2021 edit: I rewrote the whole thing -- i'll probably do it again, too)
 
 **Do not use this on any system that you care about. Period.**
 
