@@ -73,29 +73,16 @@ func Terminal() int {
 
 		var input string
 		input, err = reader.ReadString('\n')
-
 		if err != nil {
-			fmt.Println("Command read error:", err.Error())
 			exitcode = 127
+			fmt.Println("Unexpected end of input:", err.Error())
 			break
-		} else {
-			if input == "exit\n" {
-				break
-			} else if input != "\n" && input != "" {
-				// Saving the command to our history
-				err = shell.History.Append(strings.TrimSpace(input))
-				if err != nil {
-					fmt.Println("History append error:", err.Error())
-					exitcode = 126
-					break
-				}
-				exitcode, err = cmd.Parse(shell, input)
-				if err != nil {
-					fmt.Println(err.Error())
-				}
-				shell.LastStatus = exitcode
-				continue
-			}
+		}
+
+		var ok bool
+		exitcode, ok = ParseInput(shell, input)
+		if !ok {
+			break
 		}
 	}
 
@@ -104,4 +91,27 @@ func Terminal() int {
 		exitcode = 0
 	}
 	return exitcode
+}
+
+func ParseInput(shell *cli.Cli, input string) (int, bool) {
+
+	if input == "exit\n" {
+		return 1, false
+	} else if input != "\n" && input != "" {
+		// Saving the command to our history
+		err := shell.History.Append(strings.TrimSpace(input))
+		if err != nil {
+			fmt.Println("History append error:", err.Error())
+			return 126, false
+		}
+		exitcode, err := cmd.Parse(shell, input)
+		if err != nil {
+			fmt.Println(err.Error())
+		}
+		shell.LastStatus = exitcode
+
+		return 0, true
+	}
+	shell.LastStatus = 1
+	return 1, true
 }

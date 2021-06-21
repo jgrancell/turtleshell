@@ -23,8 +23,9 @@ package: binaries
 	bash packaging/generate-containers.sh ${WORKDIR}/packaging
 
 test:
-	rm -rf testdata/history/history.txt
-	echo $(TEST) | xargs -t -n4 go test -coverprofile=coverage.txt --covermode=atomic
+	rm -f testdata/history/history.txt
+	rm -f coverage.txt profile.out
+	/bin/sh go.test.sh
 	go tool cover -html=coverage.txt
 
 clean:
