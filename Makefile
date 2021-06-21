@@ -24,7 +24,7 @@ package: binaries
 
 test:
 	rm -rf testdata/history/history.txt
-	echo $(TEST) | xargs -t -n4 go test -timeout=30s -parallel=4 -coverprofile=coverage.txt --covermode=atomic
+	echo $(TEST) | xargs -t -n4 go test -coverprofile=coverage.txt --covermode=atomic
 	go tool cover -html=coverage.txt
 
 clean:
