@@ -4,3 +4,5 @@ turtleshell
 packaging/binaries
 packaging/rootfs
 packaging/workdir
+testdata/*/*.txt
+testdata/*/*.file

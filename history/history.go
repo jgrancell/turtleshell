@@ -22,12 +22,7 @@ type HistoryEntry struct {
 func Load(path string) (*History, error) {
 	var err error
 	if err = utils.ValidateOrCreateFile(path); err != nil {
-		file, err := os.OpenFile(path, os.O_APPEND|os.O_WRONLY, 0600)
-		if err != nil {
-			return nil, err
-		}
-
-		defer file.Close()
+		return nil, err
 	}
 
 	h := &History{
