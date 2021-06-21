@@ -9,29 +9,13 @@ import (
 )
 
 func Parse(s *cli.Cli, input string) (int, error) {
-	input = strings.TrimSuffix(input, "\n")
-	input = strings.TrimSuffix(input, " ")
+	var exitcode int
+	var err error
 
-	components := strings.Split(input, " ")
+	components := ParseInput(s, input)
+
 	if len(components) == 0 {
 		return 0, nil
-	}
-
-	// Before we do any work we need to replace any variable components with true values
-	for index, comp := range components {
-		if strings.Index(comp, "$") == 0 {
-			comp = strings.TrimPrefix(comp, "$")
-			val, ok := s.Variables.Get(comp)
-			if ok {
-				components[index] = val
-			} else {
-				components[index] = ""
-			}
-		}
-
-		if strings.Index(comp, "~") == 0 {
-			components[index] = strings.Replace(comp, "~", s.Configuration.Home, 1)
-		}
 	}
 
 	b := LoadBuiltins()
@@ -39,22 +23,49 @@ func Parse(s *cli.Cli, input string) (int, error) {
 	if err == nil {
 		// The command is a shell builtin
 		command := builtin.Command
-		exitcode, err := command(s, components[1:])
-		if err != nil {
-			return exitcode, err
-		}
-		return exitcode, nil
+		exitcode, err = command(s, components[1:])
 	} else {
-		// The command is not a builtin
-		cmd := exec.Command(components[0], components[1:]...)
-		cmd.Stdin = os.Stdin
-		cmd.Stderr = os.Stderr
-		cmd.Stdout = os.Stdout
-
-		if err := cmd.Run(); err != nil {
-			return 1, err
-		}
+		exitcode, err = RunBinary(components)
 	}
 
+	if exitcode != 0 {
+		return exitcode, err
+	}
+	return exitcode, nil
+}
+
+func ParseInput(s *cli.Cli, input string) []string {
+	input = strings.TrimSuffix(input, "\n")
+	input = strings.Trim(input, " ")
+
+	components := strings.Split(input, " ")
+	components = ReplaceVariablesWithValues(s, components)
+	return components
+}
+
+func ReplaceVariablesWithValues(s *cli.Cli, components []string) []string {
+	for index, comp := range components {
+		if strings.Index(comp, "$") == 0 {
+			comp = strings.TrimPrefix(comp, "$")
+			components[index], _ = s.Variables.Get(comp)
+		}
+
+		if strings.Index(comp, "~") == 0 {
+			components[index] = strings.Replace(comp, "~", s.Configuration.Home, 1)
+		}
+	}
+	return components
+}
+
+func RunBinary(components []string) (int, error) {
+	// The command is not a builtin
+	cmd := exec.Command(components[0], components[1:]...)
+	cmd.Stdin = os.Stdin
+	cmd.Stderr = os.Stderr
+	cmd.Stdout = os.Stdout
+
+	if err := cmd.Run(); err != nil {
+		return 1, err
+	}
 	return 0, nil
 }
