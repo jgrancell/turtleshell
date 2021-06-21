@@ -10,9 +10,6 @@ import (
 
 	"github.com/jgrancell/turtleshell/cli"
 	"github.com/jgrancell/turtleshell/cmd"
-	"github.com/jgrancell/turtleshell/configuration"
-	"github.com/jgrancell/turtleshell/history"
-	"github.com/jgrancell/turtleshell/variables"
 )
 
 var (
@@ -24,25 +21,12 @@ func main() {
 }
 
 func Terminal() int {
-	var err error
-	var exitcode int
-
 	shell := &cli.Cli{}
-	shell.Version = version
-
-	os.Setenv("SHELL", "/bin/turtleshell")
-
-	shell.Configuration = configuration.Load()
-
-	// Loading shell history
-	shell.History, err = history.Load(shell.Configuration.HistoryFile)
+	err := shell.Load(version)
 	if err != nil {
-		fmt.Println("Shell history initialization error:", err.Error())
+		fmt.Println(err.Error())
 		return 1
 	}
-
-	// Loading shell variables
-	shell.Variables = variables.Load()
 
 	// Catching all Interrupts and Kills and handling gracefully
 	c := make(chan os.Signal, 1)
@@ -55,9 +39,7 @@ func Terminal() int {
 			case os.Interrupt:
 				fmt.Println()
 				fmt.Println(shell.Configuration.Prompt, " ")
-			case syscall.SIGTERM:
-				fallthrough
-			case syscall.SIGINT:
+			default:
 				fmt.Println("Exiting turtleshell")
 				os.Exit(1)
 			}
@@ -71,32 +53,24 @@ func Terminal() int {
 
 		fmt.Print(shell.Configuration.Prompt, " ")
 
-		var input string
-		input, err = reader.ReadString('\n')
+		input, err := reader.ReadString('\n')
 		if err != nil {
-			exitcode = 127
-			fmt.Println("Unexpected end of input:", err.Error())
-			break
+			fmt.Println("Exiting turtleshell:", err.Error())
+			return 127
+
 		}
 
-		var ok bool
-		exitcode, ok = ParseInput(shell, input)
+		exitcode, ok := ParseInput(shell, input)
 		if !ok {
-			break
+			return exitcode
 		}
 	}
-
-	// Post run cleanup
-	if err == nil {
-		exitcode = 0
-	}
-	return exitcode
 }
 
 func ParseInput(shell *cli.Cli, input string) (int, bool) {
 
 	if input == "exit\n" {
-		return 1, false
+		return 0, false
 	} else if input != "\n" && input != "" {
 		// Saving the command to our history
 		err := shell.History.Append(strings.TrimSpace(input))
