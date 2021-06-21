@@ -26,7 +26,7 @@ func TestParseInput(t *testing.T) {
 
 	os.Setenv("SHELL", "/bin/turtleshell")
 
-	shell.Configuration = configuration.Load()
+	shell.Configuration = configuration.Load("")
 
 	// Loading shell history
 	var err error

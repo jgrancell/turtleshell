@@ -12,7 +12,7 @@ func Parse(s *cli.Cli, input string) (int, error) {
 	var exitcode int
 	var err error
 
-	components := ParseInput(s, input)
+	components := ParseInputs(s, input)
 
 	if len(components) == 0 {
 		return 0, nil
@@ -34,7 +34,7 @@ func Parse(s *cli.Cli, input string) (int, error) {
 	return exitcode, nil
 }
 
-func ParseInput(s *cli.Cli, input string) []string {
+func ParseInputs(s *cli.Cli, input string) []string {
 	input = strings.TrimSuffix(input, "\n")
 	input = strings.Trim(input, " ")
 
@@ -59,6 +59,9 @@ func ReplaceVariablesWithValues(s *cli.Cli, components []string) []string {
 
 func RunBinary(components []string) (int, error) {
 	// The command is not a builtin
+
+	// Gosec: This is not a security issue because we're a shell, so we WANT to execute user input
+	/* #nosec G204 */
 	cmd := exec.Command(components[0], components[1:]...)
 	cmd.Stdin = os.Stdin
 	cmd.Stderr = os.Stderr

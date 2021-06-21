@@ -9,6 +9,8 @@ func OpenFile(path string) (*os.File, error) {
 		return nil, err
 	}
 
+	// Gosec: this isn't a security issue because we want to open arbitrary files
+	/* #nosec G304 */
 	file, err := os.Open(path)
 	if err != nil {
 		return nil, err
@@ -25,7 +27,7 @@ func ValidateOrCreateFile(path string) error {
 		if err != nil {
 			return err
 		}
-		defer file.Close()
+		_ = file.Close()
 	}
 
 	return nil

@@ -24,8 +24,16 @@ package: binaries
 
 test:
 	rm -f testdata/history/history.txt
+	rm -f testdata/configuration/test.json
 	rm -f coverage.txt profile.out
+	rm -f gosec-report.json
 	/bin/sh go.test.sh
+
+test-sonarqube: test
+	gosec --no-fail -fmt=sonarqube -out gosec-report.json ./...
+	/opt/sonar-scanner/bin/sonar-scanner
+
+test-view: test
 	go tool cover -html=coverage.txt
 
 clean:

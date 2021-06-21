@@ -1,8 +1,15 @@
+.scannerwork
+
+# Files
 cover.out
 coverage.txt
+gosec-report.json
 turtleshell
+
+# Directories
 packaging/binaries
 packaging/rootfs
 packaging/workdir
 testdata/*/*.txt
 testdata/*/*.file
+testdata/configuration/test.json

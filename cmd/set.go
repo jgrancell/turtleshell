@@ -9,6 +9,7 @@ import (
 )
 
 func Set(s *cli.Cli, components []string) (int, error) {
+	// TODO: Add support for --export to environment
 	verbose := utils.HasVerbose(components)
 
 	args := utils.UnsetFlags(components)

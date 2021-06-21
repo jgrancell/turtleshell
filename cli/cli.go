@@ -21,9 +21,9 @@ func (c *Cli) Load(version string) error {
 	var err error
 	c.Version = version
 
-	os.Setenv("SHELL", "/bin/turtleshell")
+	_ = os.Setenv("SHELL", "/bin/turtleshell")
 
-	c.Configuration = configuration.Load()
+	c.Configuration = configuration.Load("")
 
 	// Loading shell history
 	c.History, err = history.Load(c.Configuration.HistoryFile)

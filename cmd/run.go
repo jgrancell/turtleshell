@@ -14,7 +14,8 @@ func Run(s *cli.Cli, components []string) (int, error) {
 		if info, err := os.Stat(target); err == nil {
 			mode := info.Mode()
 			if mode&0111 != 0 {
-				return 1, fmt.Errorf("todo feature not yet implemented to run target script file %s", target)
+				// TODO: add script runner
+				return 0, fmt.Errorf("todo feature not yet implemented to run target script file %s", target)
 			} else {
 				return 1, fmt.Errorf("the target script file %s is not executable", target)
 			}

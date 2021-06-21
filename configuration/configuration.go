@@ -17,24 +17,28 @@ type Configuration struct {
 	HistoryFile  string
 	HistoryLimit int `json:"history_limit"`
 	Home         string
+	RcFile       string
 	Version      string
 }
 
-func Load() *Configuration {
+func Load(rcfile string) *Configuration {
 	c := &Configuration{}
 	c.user()
 
-	path := c.Home + "/.turtlerc"
+	if rcfile == "" {
+		c.RcFile = c.Home + "/.turtlerc"
+	} else {
+		c.RcFile = rcfile
+	}
 
-	if file, err := utils.OpenFile(path); err == nil {
-		defer file.Close()
-
+	file, err := utils.OpenFile(c.RcFile)
+	if err == nil {
 		decoder := json.NewDecoder(file)
-
 		_ = decoder.Decode(c)
 	} else {
-		_ = utils.ValidateOrCreateFile(path)
+		_ = utils.ValidateOrCreateFile(c.RcFile)
 	}
+	_ = file.Close()
 
 	if c.PS1 == "" {
 		c.PS1 = "[{user}@{hostname}]: >"
@@ -50,13 +54,12 @@ func Load() *Configuration {
 }
 
 func (c *Configuration) Reload() {
-	if file, err := utils.OpenFile(c.Home + "/.turtlerc"); err == nil {
-		defer file.Close()
-
+	file, err := utils.OpenFile(c.RcFile)
+	if err == nil {
 		decoder := json.NewDecoder(file)
-
 		_ = decoder.Decode(c)
 	}
+	_ = file.Close()
 	c.generatePrompt()
 }
 
@@ -104,10 +107,9 @@ func (c *Configuration) user() {
 	usr, _ := user.Current()
 
 	c.User = usr.Username
-	os.Setenv("USERNAME", c.User)
-	os.Setenv("USER", c.User)
+	_ = os.Setenv("USERNAME", c.User)
+	_ = os.Setenv("USER", c.User)
 
 	c.Home = usr.HomeDir
-	os.Setenv("HOME", c.Home)
-
+	_ = os.Setenv("HOME", c.Home)
 }
